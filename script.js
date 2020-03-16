@@ -560,7 +560,7 @@ function isMatedWhiteKing() {
 }
 
 function isMatedBlackKing() {
-    if (!isCheckForKingBlack()) return 'no check';
+    if (!isCheckForKingBlack()) return;
     let indexes = [];
 
     for (let i = 0; i < chessFields.length; i++) {
@@ -568,7 +568,7 @@ function isMatedBlackKing() {
             indexes[0] = i;
         }
     }
-
+    
     let event = {
         target: chessFields[indexes[0]]
     }
@@ -576,7 +576,8 @@ function isMatedBlackKing() {
     let possibleSteps = []
 
     let testSteps = kingClickBlack(event, true, possibleSteps);
-    if (testSteps == undefined) return 'king';
+    console.log(testSteps);
+    if (testSteps == undefined) return;
 
     for (let i = 0; i < testSteps.length; i++) {
         chessFields[testSteps[i]].click();
@@ -1452,7 +1453,6 @@ function kingClickWhite(event, mateCheck, possibleSteps) {
     }
 
     function kingCastlesShort(event) {
-        console.log(isCheckForKingWhite());
         if (isCheckForKingWhite()) {
             chessFields[51].onclick = null;
             chessFields[52].onclick = null;
@@ -1491,6 +1491,11 @@ function kingClickWhite(event, mateCheck, possibleSteps) {
                 chessFields[61].addEventListener('click', rookClickWhite);
                 kingMayCastleWhite = false;
                 whitesPlay = false;
+            } else {
+                chessFields[i].className = 'chessField';
+                chessFields[i].removeEventListener('click', kingClickWhite);
+                chessFields[60].className = 'chessField white king';
+                chessFields[60].addEventListener('click', kingClickWhite);
             }
         }
 
@@ -1550,6 +1555,11 @@ function kingClickWhite(event, mateCheck, possibleSteps) {
                 chessFields[59].addEventListener('click', rookClickWhite);
                 kingMayCastleWhite = false;
                 whitesPlay = false;
+            } else {
+                chessFields[i].className = 'chessField';
+                chessFields[i].removeEventListener('click', kingClickWhite);
+                chessFields[60].className = 'chessField white king';
+                chessFields[60].addEventListener('click', kingClickWhite);
             }
         }
 
@@ -1750,6 +1760,7 @@ function kingClickBlack(event, mateCheck, possibleSteps) {
 
     function kingEats(event) {
         let indexOfTarget = Array.from(chessFields).indexOf(event.target);
+        console.log(index, indexOfTarget)
         let removedClicker = removeClickers(chessFields[indexOfTarget]);
         let initialClassName = chessFields[indexOfTarget].className;
         chessFields[index].removeEventListener('click', kingClickBlack)
@@ -1799,7 +1810,9 @@ function kingClickBlack(event, mateCheck, possibleSteps) {
         }
 
         if (isCheckForKingBlack() || mateCheck) {
+            console.log(mateCheck);
             if (!isCheckForKingBlack()) possibleSteps.push(indexOfTarget)
+            if (mateCheck) console.log(initialClassName);
             chessFields[index].addEventListener('click', kingClickBlack)
             chessFields[index].className = "chessField black king";
             chessFields[indexOfTarget].className = initialClassName;
@@ -1855,6 +1868,11 @@ function kingClickBlack(event, mateCheck, possibleSteps) {
                 chessFields[5].addEventListener('click', rookClickBlack);
                 kingMayCastleBlack = false;
                 whitesPlay = true;
+            } else {
+                chessFields[i].className = 'chessField';
+                chessFields[i].removeEventListener('click', kingClickBlack);
+                chessFields[4].className = 'chessField black king';
+                chessFields[4].addEventListener('click', kingClickBlack);
             }
         }
 
@@ -1913,6 +1931,11 @@ function kingClickBlack(event, mateCheck, possibleSteps) {
                 chessFields[3].addEventListener('click', rookClickBlack);
                 kingMayCastleBlack = false;
                 whitesPlay = true;
+            } else {
+                chessFields[i].className = 'chessField';
+                chessFields[i].removeEventListener('click', kingClickBlack);
+                chessFields[4].className = 'chessField black king';
+                chessFields[4].addEventListener('click', kingClickBlack);
             }
         }
 
@@ -2116,14 +2139,14 @@ function queenClickBlack(event, mateCheck, possibleSteps) {
     }
 
     function queenEats(event) {
-        let indexOfPrey = Array.from(chessFields).indexOf(event.target);
-        let removedClicker = removeClickers(chessFields[indexOfPrey]);
-        let initialClassName = chessFields[indexOfPrey].className;
+        let indexOfTarget = Array.from(chessFields).indexOf(event.target);
+        let removedClicker = removeClickers(chessFields[indexOfTarget]);
+        let initialClassName = chessFields[indexOfTarget].className;
         chessFields[index].removeEventListener('click', queenClickBlack)
         chessFields[index].className = "chessField";
-        chessFields[indexOfPrey].className = "chessField";
-        chessFields[indexOfPrey].classList.add('black', 'queen');
-        chessFields[indexOfPrey].addEventListener('click', queenClickBlack);
+        chessFields[indexOfTarget].className = "chessField";
+        chessFields[indexOfTarget].classList.add('black', 'queen');
+        chessFields[indexOfTarget].addEventListener('click', queenClickBlack);
         if (!mateCheck) {
             for (let i = index + 7; i <= 63; i += 7) {
                 chessFields[i].classList.remove('active');
@@ -4349,5 +4372,3 @@ function rookClickBlack(event, mateCheck, possibleSteps) {
 
     return possibleMovements;
 }
-
-
