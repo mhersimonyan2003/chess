@@ -1,0 +1,129 @@
+body,
+html {
+    height: 100%;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.chessDesk {
+    display: inline-block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border: 2px solid black;
+}
+
+.chess {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.chessField {
+    display: flex;
+    width: 70px;
+    height: 70px;
+    cursor: pointer;
+    background-color: #779556;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.chess:nth-child(2n+1)>.chessField:nth-child(2n+1),
+.chess:nth-child(2n)>.chessField:nth-child(2n) {
+    background-color: #ebecd0;
+}
+
+.chessField.white.pawn {
+    background-image: url(img/whitepawn.png);
+    background-repeat: no-repeat;
+    background-size: 36px 60px;
+    background-position: center center;
+}
+
+.chessField.black.pawn {
+    background-image: url(img/blackpawn.png);
+    background-repeat: no-repeat;
+    background-size: 36px 60px;
+    background-position: center center;
+}
+
+.chessField.white.knight {
+    background-image: url(img/whiteknight.png);
+    background-repeat: no-repeat;
+    background-size: 36px 60px;
+    background-position: center center;
+}
+
+.chessField.black.knight {
+    background-image: url(img/blackknight.png);
+    background-repeat: no-repeat;
+    background-size: 36px 60px;
+    background-position: center center;
+}
+
+.chessField.white.bishop {
+    background-image: url(img/whitebishop.png);
+    background-repeat: no-repeat;
+    background-size: 33px 60px;
+    background-position: center center;
+}
+
+.chessField.black.bishop {
+    background-image: url(img/blackbishop.png);
+    background-repeat: no-repeat;
+    background-size: 33px 60px;
+    background-position: center center;
+}
+
+.chessField.white.rook {
+    background-image: url(img/whiterook.png);
+    background-repeat: no-repeat;
+    background-size: 36px 60px;
+    background-position: center center;
+}
+
+.chessField.black.rook {
+    background-image: url(img/blackrook.png);
+    background-repeat: no-repeat;
+    background-size: 36px 60px;
+    background-position: center center;
+}
+
+.chessField.white.queen {
+    background-image: url(img/whitequeen.png);
+    background-repeat: no-repeat;
+    background-size: 34px 60px;
+    background-position: center center;
+}
+
+.chessField.black.queen {
+    background-image: url(img/blackqueen.png);
+    background-repeat: no-repeat;
+    background-size: 34px 60px;
+    background-position: center center;
+}
+
+.chessField.white.king {
+    background-image: url(img/whiteking.png);
+    background-repeat: no-repeat;
+    background-size: 34px 60px;
+    background-position: center center;
+}
+
+.chessField.black.king {
+    background-image: url(img/blackking.png);
+    background-repeat: no-repeat;
+    background-size: 34px 60px;
+    background-position: center center;
+}
+
+.chessField.active {
+    background-color: rgba(179, 208, 21, 0.82) !important;
+}
