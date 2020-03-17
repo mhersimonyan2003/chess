@@ -568,7 +568,7 @@ function isMatedBlackKing() {
             indexes[0] = i;
         }
     }
-    
+
     let event = {
         target: chessFields[indexes[0]]
     }
@@ -576,7 +576,7 @@ function isMatedBlackKing() {
     let possibleSteps = []
 
     let testSteps = kingClickBlack(event, true, possibleSteps);
-    console.log(testSteps);
+    console.log(testSteps, 'king');
     if (testSteps == undefined) return;
 
     for (let i = 0; i < testSteps.length; i++) {
@@ -604,6 +604,7 @@ function isMatedBlackKing() {
             target: chessFields[indexes[i]]
         }
         testSteps = knightClickBlack(event, true, possibleSteps);
+        console.log(testSteps, 'knight');
         if (testSteps == undefined) return 'knight';
         for (let i = 0; i < testSteps.length; i++) {
             chessFields[testSteps[i]].click();
@@ -633,6 +634,7 @@ function isMatedBlackKing() {
 
     testSteps = queenClickBlack(event, true, possibleSteps);
     if (testSteps == undefined) return 'queen';
+    console.log(testSteps, 'queen');
     for (let i = 0; i < testSteps.length; i++) {
         chessFields[testSteps[i]].click();
         if (possibleSteps.length != 0) {
@@ -659,6 +661,7 @@ function isMatedBlackKing() {
             target: chessFields[indexes[i]]
         }
         testSteps = bishopClickBlack(event, true, possibleSteps);
+        console.log(testSteps, 'bishop');
         if (testSteps == undefined) return 'bishop';
         for (let i = 0; i < testSteps.length; i++) {
             chessFields[testSteps[i]].click();
@@ -687,6 +690,7 @@ function isMatedBlackKing() {
             target: chessFields[indexes[i]]
         }
         testSteps = pawnClickBlack(event, true, possibleSteps);
+        console.log(testSteps, 'pawn');
         if (testSteps == undefined) return 'pawn';
         for (let i = 0; i < testSteps.length; i++) {
             chessFields[testSteps[i]].click();
@@ -715,6 +719,7 @@ function isMatedBlackKing() {
             target: chessFields[indexes[i]]
         }
         testSteps = rookClickBlack(event, true, possibleSteps);
+        console.log(testSteps, 'rook');
         if (testSteps == undefined) return 'rook';
         for (let i = 0; i < testSteps.length; i++) {
             chessFields[testSteps[i]].click();
@@ -921,6 +926,7 @@ function knightClickWhite(event, mateCheck, possibleSteps) {
 
     let index = Array.from(chessFields).indexOf(event.target);
     let possibleMovements = [];
+    if (index == -1) return possibleMovements;
 
     if (areActiveFields == true) {
         chessFields.forEach(elem => {
@@ -1210,6 +1216,7 @@ function knightClickBlack(event, mateCheck, possibleSteps) {
 
     let index = Array.from(chessFields).indexOf(event.target);
     let possibleMovements = [];
+    if (index == -1) return possibleMovements;
 
     if (areActiveFields == true) {
         chessFields.forEach(elem => {
@@ -2096,7 +2103,7 @@ function queenClickBlack(event, mateCheck, possibleSteps) {
                 chessFields[i].onclick = null;
             }
 
-            for (let i = Math.floor(index / 8) * 8; i < Math.ceil(index / 8) * 8; i++) {
+            for (let i = Math.floor(index / 8) * 8; i < (Math.floor(index / 8) + 1) * 8; i++) {
                 chessFields[i].classList.remove('active');
                 chessFields[i].onclick = null;
             }
@@ -2168,7 +2175,7 @@ function queenClickBlack(event, mateCheck, possibleSteps) {
                 chessFields[i].onclick = null;
             }
 
-            for (let i = Math.floor(index / 8) * 8; i < Math.ceil(index / 8) * 8; i++) {
+            for (let i = Math.floor(index / 8) * 8; i < (Math.floor(index / 8) + 1) * 8; i++) {
                 chessFields[i].classList.remove('active');
                 chessFields[i].onclick = null;
             }
@@ -2223,6 +2230,7 @@ function queenClickBlack(event, mateCheck, possibleSteps) {
 
     let index = Array.from(chessFields).indexOf(event.target);
     let possibleMovements = [];
+    if (index == -1) return possibleMovements;
 
     if (areActiveFields == true) {
         chessFields.forEach(elem => {
@@ -2326,7 +2334,7 @@ function queenClickBlack(event, mateCheck, possibleSteps) {
         }
     }
 
-    for (let i = index + 1; i < Math.ceil(index / 8) * 8; i++) {
+    for (let i = index; i < (Math.floor(index / 8) + 1) * 8; i++) {
         if (i == index) continue;
         if (chessFields[i].className == 'chessField') {
             chessFields[i].classList.add('active');
@@ -2342,7 +2350,7 @@ function queenClickBlack(event, mateCheck, possibleSteps) {
         }
     }
 
-    for (let i = index - 1; i >= Math.floor(index / 8) * 8; i--) {
+    for (let i = index; i >= Math.floor(index / 8) * 8; i--) {
         if (i == index) continue;
         if (chessFields[i].className == 'chessField') {
             chessFields[i].classList.add('active');
@@ -2358,7 +2366,7 @@ function queenClickBlack(event, mateCheck, possibleSteps) {
         }
     }
 
-    for (let i = index + 8; i <= 64; i += 8) {
+    for (let i = index; i <= 63; i += 8) {
         if (i == index) continue;
         if (chessFields[i].className == 'chessField') {
             chessFields[i].classList.add('active');
@@ -2374,7 +2382,7 @@ function queenClickBlack(event, mateCheck, possibleSteps) {
         }
     }
 
-    for (let i = index - 8; i >= 0; i -= 8) {
+    for (let i = index; i >= 0; i -= 8) {
         if (i == index) continue;
         if (chessFields[i].className == 'chessField') {
             chessFields[i].classList.add('active');
@@ -2426,7 +2434,7 @@ function queenClickWhite(event, mateCheck, possibleSteps) {
                 chessFields[i].onclick = null;
             }
 
-            for (let i = Math.floor(index / 8) * 8; i < Math.ceil(index / 8) * 8; i++) {
+            for (let i = Math.floor(index / 8) * 8; i < (Math.floor(index / 8) + 1); i++) {
                 chessFields[i].classList.remove('active');
                 chessFields[i].onclick = null;
             }
@@ -2499,7 +2507,7 @@ function queenClickWhite(event, mateCheck, possibleSteps) {
                 chessFields[i].onclick = null;
             }
 
-            for (let i = Math.floor(index / 8) * 8; i < Math.ceil(index / 8) * 8; i++) {
+            for (let i = Math.floor(index / 8) * 8; i < (Math.floor(index / 8) + 1) * 8; i++) {
                 chessFields[i].classList.remove('active');
                 chessFields[i].onclick = null;
             }
@@ -2544,6 +2552,7 @@ function queenClickWhite(event, mateCheck, possibleSteps) {
 
     let index = Array.from(chessFields).indexOf(event.target);
     let possibleMovements = [];
+    if (index == -1) return possibleMovements;
 
     if (areActiveFields == true) {
         chessFields.forEach(elem => {
@@ -2647,7 +2656,7 @@ function queenClickWhite(event, mateCheck, possibleSteps) {
         }
     }
 
-    for (let i = index + 1; i < Math.ceil(index / 8) * 8; i++) {
+    for (let i = index; i < (Math.floor(index / 8) + 1) * 8; i++) {
         if (i == index) continue;
         if (chessFields[i].className == 'chessField') {
             chessFields[i].classList.add('active');
@@ -2663,7 +2672,7 @@ function queenClickWhite(event, mateCheck, possibleSteps) {
         }
     }
 
-    for (let i = index - 1; i >= Math.floor(index / 8) * 8; i--) {
+    for (let i = index; i >= Math.floor(index / 8) * 8; i--) {
         if (i == index) continue;
         if (chessFields[i].className == 'chessField') {
             chessFields[i].classList.add('active');
@@ -2679,7 +2688,7 @@ function queenClickWhite(event, mateCheck, possibleSteps) {
         }
     }
 
-    for (let i = index + 8; i <= 64; i += 8) {
+    for (let i = index + 8; i <= 63; i += 8) {
         if (i == index) continue;
         if (chessFields[i].className == 'chessField') {
             chessFields[i].classList.add('active');
@@ -2855,6 +2864,7 @@ function bishopClickBlack(event, mateCheck, possibleSteps) {
 
     let index = Array.from(chessFields).indexOf(event.target);
     let possibleMovements = [];
+    if (index == -1) return possibleMovements;
 
     for (let i = index; i <= 63; i += 7) {
         if (index % 8 == 0) break;
@@ -3091,6 +3101,7 @@ function bishopClickWhite(event, mateCheck, possibleSteps) {
 
     let index = Array.from(chessFields).indexOf(event.target);
     let possibleMovements = [];
+    if (index == -1) return possibleMovements;
 
     for (let i = index; i <= 63; i += 7) {
         if (index % 8 == 0) break;
@@ -3522,6 +3533,7 @@ function pawnClickWhite(event, mateCheck, possibleSteps) {
 
     let index = Array.from(chessFields).indexOf(event.target);
     let possibleMovements = [];
+    if (index == -1) return possibleMovements;
 
     if (chessFields[index - 8].className == 'chessField') {
         chessFields[index - 8].classList.add('active');
@@ -3931,7 +3943,8 @@ function pawnClickBlack(event, mateCheck, possibleSteps) {
     }
 
     let index = Array.from(chessFields).indexOf(event.target);
-    let possibleMovements = []
+    let possibleMovements = [];
+    if (index == -1) return possibleMovements;
 
     if (chessFields[index + 8].className == 'chessField') {
         chessFields[index + 8].classList.add('active');
@@ -4120,6 +4133,7 @@ function rookClickWhite(event, mateCheck, possibleSteps) {
 
     let index = Array.from(chessFields).indexOf(event.target);
     let possibleMovements = [];
+    if (index == -1) return possibleMovements;
 
     for (let i = index; i < Math.floor((index / 8) + 1) * 8; i++) {
         if (i == index) continue;
@@ -4305,15 +4319,18 @@ function rookClickBlack(event, mateCheck, possibleSteps) {
 
     let index = Array.from(chessFields).indexOf(event.target);
     let possibleMovements = [];
+    if (index == -1) return possibleMovements;
 
     for (let i = index; i < Math.floor((index / 8) + 1) * 8; i++) {
         if (i == index) continue;
         if (chessFields[i].className == 'chessField') {
             chessFields[i].classList.add('active');
             chessFields[i].onclick = rookMove;
+            possibleMovements.push(i);
         } else if (chessFields[i].classList.contains('white') && !chessFields[i].classList.contains('king')) {
             chessFields[i].classList.add('active');
             chessFields[i].onclick = rookEats;
+            possibleMovements.push(i);
             break;
         } else {
             break;
